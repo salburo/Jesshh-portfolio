@@ -907,26 +907,31 @@ const SkillsSection = () => {
 }
 
 const ProjectsSection = () => {
+  const [expandedProject, setExpandedProject] = useState(null);
+
   const projects = [
     {
       title: "Brand Social Media Campaign",
       description: "Developed and executed a 3-month social media strategy that increased engagement by 200% and grew followers by 5,000+.",
       tech: ["Content Strategy", "Canva", "Meta Business Suite", "Later"],
-      category: "Content Creation"
+      category: "Content Creation",
+      fullDescription: "This comprehensive campaign involved market research, content calendar creation, daily engagement monitoring, and monthly performance reporting. The strategy focused on authentic storytelling and community building."
     },
     {
       title: "Virtual Executive Support",
       description: "Provided comprehensive virtual assistance to a busy executive, managing emails, scheduling, travel arrangements, and project coordination.",
       tech: ["Calendar Management", "Email Management", "Trello", "Slack"],
-      category: "Virtual Assistance"
+      category: "Virtual Assistance",
+      fullDescription: "Managed a complex calendar with 20+ weekly meetings, coordinated international travel, handled confidential correspondence, and streamlined workflow processes."
     },
     {
       title: "Product Launch Campaign",
       description: "Created engaging video content and social media posts for a product launch that generated 10,000+ views and 500+ pre-orders.",
       tech: ["Video Editing", "CapCut", "Adobe Premiere", "Hootsuite"],
-      category: "Digital Marketing"
+      category: "Digital Marketing",
+      fullDescription: "Produced 15+ video assets, managed a content calendar across 4 platforms, engaged with potential customers, and tracked analytics to optimize performance."
     }
-  ]
+  ];
 
   return (
     <section id="projects" className="section">
@@ -955,7 +960,15 @@ const ProjectsSection = () => {
             >
               <div className="project-category">{project.category}</div>
               <h3>{project.title}</h3>
-              <p>{project.description}</p>
+              <p className="project-description">
+                {expandedProject === idx ? project.fullDescription : project.description}
+              </p>
+              <button 
+                className="read-more-btn"
+                onClick={() => setExpandedProject(expandedProject === idx ? null : idx)}
+              >
+                {expandedProject === idx ? 'Show Less' : 'Read More'}
+              </button>
               <div className="project-tech">
                 {project.tech.map(tech => (
                   <span key={tech}>{tech}</span>
@@ -971,8 +984,8 @@ const ProjectsSection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 const ContactSection = () => {
   const contactMethods = [
